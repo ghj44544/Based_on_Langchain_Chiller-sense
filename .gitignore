@@ -12,6 +12,9 @@ frontend/.env.local
 backend/.venv/
 backend/.venv_codex/
 backend/.tmp/
+backend-rag/.venv/
+backend-rag/.venv_codex/
+backend-rag/.tmp/
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -30,12 +33,21 @@ backend/db_backup_*/
 backend/db_backups/
 backend/*.sqlite
 backend/*.sqlite3
+backend-rag/chroma_db/
+backend-rag/chiller_fault*.db
+backend-rag/chiller_fault*.db-journal
+backend-rag/*.sqlite
+backend-rag/*.sqlite3
 
 # runtime files
 backend/uploads/*
 backend/reports/*
 !backend/uploads/.gitkeep
 !backend/reports/.gitkeep
+backend-rag/uploads/*
+backend-rag/reports/*
+!backend-rag/uploads/.gitkeep
+!backend-rag/reports/.gitkeep
 backend/1.1.2
 
 # model files
@@ -53,6 +65,10 @@ backend/M1DCNN-集成/results_ultra/
 backend/M1DCNN-集成/**/*.mat
 backend/M1DCNN-集成/**/*.fig
 backend/M1DCNN-集成/**/*.png
+backend-rag/saved_models/*.pkl
+backend-rag/saved_models/*.joblib
+backend-rag/saved_models/*.mat
+backend-rag/M1DCNN-集成/
 
 # OS / IDE
 .DS_Store

@@ -15,6 +15,12 @@ chiller-sense/
 │   ├── tests/               # 后端测试
 │   ├── .env.example         # 后端环境变量模板
 │   └── requirements.txt
+├── backend-rag/             # backend 的增强版，保留原功能并扩展完整 RAG
+│   ├── app/                 # 原后端 API、诊断服务、报告服务、RAG 检索和问答服务
+│   ├── knowledge_base/      # RAG Markdown 知识库副本
+│   ├── tests/               # RAG 后端测试
+│   ├── .env.example         # RAG 环境变量模板
+│   └── requirements.txt
 ├── frontend/                # Vue 3 前端
 │   ├── src/
 │   ├── .env.example         # 前端环境变量模板
@@ -188,6 +194,29 @@ OPENAI_TIMEOUT=60
 ```
 
 `ENABLE_RAG=true` 时，后端会检索 `backend/knowledge_base/*.md`，并将相关知识片段注入 LangChain 提示词。
+
+## 独立 RAG 后端
+
+如果希望在保留现有诊断、MATLAB 调用、数据库记录、报告导出和聊天接口的基础上扩展完整 LangChain + RAG，可以使用 `backend-rag/`。该目录是 `backend/` 的增强版副本，和原 `backend/` 分开，便于对比和回滚。
+
+启动方式：
+
+```powershell
+cd backend-rag
+python -m venv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
+copy .env.example .env
+uvicorn app.main:app --reload --port 8010
+```
+
+默认接口文档：
+
+```text
+http://127.0.0.1:8010/docs
+```
+
+`backend-rag` 支持原有 `/api/diagnosis`、`/api/chat`、`/api/report`、`/api/health` 等接口，并额外提供 `/api/rag/sources`、`/api/rag/search`、`/api/rag/ask`、`/api/rag/reindex`。RAG 支持关键词检索、Chroma 向量检索和 Hybrid 检索。未配置 Embedding 时会自动降级到关键词检索；配置 `OPENAI_API_KEY`、`OPENAI_MODEL` 和 `OPENAI_EMBEDDING_MODEL` 后可以启用完整向量 RAG。
 
 ## 前端启动
 
