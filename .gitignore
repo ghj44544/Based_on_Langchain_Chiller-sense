@@ -1,0 +1,61 @@
+# env
+.env
+.env.local
+.env.*.local
+*.env
+*.env.local
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Python
+backend/.venv/
+backend/.venv_codex/
+backend/.tmp/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.npm-cache/
+frontend/.pnpm-store/
+frontend/.pnpm-debug.log*
+
+# database
+backend/chiller_fault*.db
+backend/chiller_fault*.db-journal
+backend/db_backup_*/
+backend/db_backups/
+backend/*.sqlite
+backend/*.sqlite3
+
+# runtime files
+backend/uploads/*
+backend/reports/*
+!backend/uploads/.gitkeep
+!backend/reports/.gitkeep
+backend/1.1.2
+
+# model files
+backend/saved_models/fault_model.pkl
+backend/saved_models/scaler.pkl
+backend/saved_models/*.pkl
+backend/saved_models/*.joblib
+backend/saved_models/*.mat
+
+backend/M1DCNN-集成/
+backend/M1DCNN-集成/saved_models_ultra/
+backend/M1DCNN-集成/saved_models/
+backend/M1DCNN-集成/results/
+backend/M1DCNN-集成/results_ultra/
+backend/M1DCNN-集成/**/*.mat
+backend/M1DCNN-集成/**/*.fig
+backend/M1DCNN-集成/**/*.png
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

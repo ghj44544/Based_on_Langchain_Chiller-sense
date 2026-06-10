@@ -1,0 +1,111 @@
+:root {
+  color: #1f2d3d;
+  font-family:
+    "Microsoft YaHei",
+    "PingFang SC",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  background: #f3f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f3f7fb;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page {
+  display: grid;
+  gap: 16px;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.page-title {
+  margin: 0;
+  color: #172b4d;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.page-subtitle {
+  margin: 6px 0 0;
+  color: #6b778c;
+  font-size: 13px;
+}
+
+.panel-card {
+  border: 1px solid #dfe8f3;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgb(39 76 119 / 6%);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.metric {
+  padding: 14px;
+  border: 1px solid #e3edf7;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.metric-label {
+  margin-bottom: 8px;
+  color: #6b778c;
+  font-size: 12px;
+}
+
+.metric-value {
+  color: #172b4d;
+  font-size: 20px;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.section-title {
+  margin: 0 0 12px;
+  color: #172b4d;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.muted {
+  color: #7a869a;
+}
+
+.mono {
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,15 @@
+.env
+.venv/
+.venv_codex/
+.tmp/
+__pycache__/
+*.py[cod]
+chiller_fault*.db
+chiller_fault*.db-journal
+db_backup_*/
+uploads/*
+reports/*
+!uploads/.gitkeep
+!reports/.gitkeep
+saved_models/fault_model.pkl
+saved_models/scaler.pkl
