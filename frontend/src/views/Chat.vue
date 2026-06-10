@@ -49,9 +49,27 @@
             <span v-if="message.isError" class="muted">业务提示</span>
           </div>
           <div class="message-content">{{ message.content }}</div>
-          <div v-if="message.sources?.length" class="sources">
-            <span>知识库来源：</span>
-            <el-tag v-for="source in message.sources" :key="source" effect="plain" size="small">{{ source }}</el-tag>
+          <div v-if="message.role === 'assistant' && !message.isError" class="rag-block">
+            <div class="rag-title">
+              <span>RAG 知识库来源</span>
+              <el-tag v-if="message.retriever" type="primary" effect="plain" size="small">{{ message.retriever }}</el-tag>
+            </div>
+            <div class="sources">
+              <el-tag v-if="!message.sources?.length" type="info" effect="plain" size="small">
+                本次未返回知识库来源
+              </el-tag>
+              <el-tag v-for="source in message.sources" :key="source" effect="plain" size="small">{{ source }}</el-tag>
+            </div>
+            <div v-if="message.hits?.length" class="hit-list">
+              <div v-for="hit in message.hits" :key="`${hit.source}-${hit.chunk_id}`" class="hit-item">
+                <div class="hit-meta">
+                  <span>{{ hit.source }}</span>
+                  <span>chunk_id: {{ hit.chunk_id }}</span>
+                  <span>score: {{ formatScore(hit.score) }}</span>
+                </div>
+                <div class="hit-content">{{ hit.content }}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -66,12 +84,15 @@ import { useRoute } from 'vue-router';
 import { askDiagnosisQuestion } from '@/api/chat';
 import { ApiServiceError } from '@/api/request';
 import { useDiagnosisStore } from '@/stores/diagnosis';
+import type { RagHit } from '@/types/api';
 
 interface ChatMessage {
   id: number;
   role: 'user' | 'assistant';
   content: string;
+  retriever?: string;
   sources?: string[];
+  hits?: RagHit[];
   isError?: boolean;
 }
 
@@ -112,7 +133,9 @@ async function submit() {
       id: nextId++,
       role: 'assistant',
       content: response.answer,
+      retriever: response.retriever,
       sources: response.sources,
+      hits: response.hits,
     });
   } catch (error) {
     const message = error instanceof ApiServiceError ? error.message : '问答接口调用失败';
@@ -125,6 +148,10 @@ async function submit() {
   } finally {
     loading.value = false;
   }
+}
+
+function formatScore(score: number) {
+  return Number.isFinite(score) ? score.toFixed(4) : '-';
 }
 </script>
 
@@ -176,12 +203,58 @@ async function submit() {
   white-space: pre-wrap;
 }
 
+.rag-block {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #dce9f5;
+}
+
+.rag-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: #172b4d;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .sources {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 12px;
   color: #6b778c;
   font-size: 13px;
+}
+
+.hit-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.hit-item {
+  padding: 10px;
+  border: 1px solid #e3edf7;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.hit-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+  color: #6b778c;
+  font-size: 12px;
+}
+
+.hit-content {
+  color: #253858;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 </style>

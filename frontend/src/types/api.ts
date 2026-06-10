@@ -17,6 +17,10 @@ export interface HealthStatus {
   llm_provider?: string;
   llm_model?: string | null;
   rag_enabled: boolean;
+  rag_retriever?: RagRetriever | string;
+  embedding_configured?: boolean;
+  knowledge_base_dir?: string;
+  knowledge_chunks?: number;
 }
 
 export type LabelMap = Record<string, string>;
@@ -65,7 +69,9 @@ export interface ChatRequest {
 
 export interface ChatResponse {
   answer: string;
+  retriever?: RagRetriever | string;
   sources?: string[];
+  hits?: RagHit[];
 }
 
 export type ReportFormat = 'md' | 'html' | 'docx';
@@ -84,3 +90,39 @@ export interface ApiErrorPayload {
   data?: unknown;
   status?: number;
 }
+
+export type RagRetriever = 'hybrid' | 'vector' | 'keyword' | 'keyword_fallback';
+
+export interface RagHit {
+  source: string;
+  chunk_id: string;
+  score: number;
+  content: string;
+}
+
+export interface RagSearchPayload {
+  query: string;
+  retriever: Extract<RagRetriever, 'hybrid' | 'vector' | 'keyword'>;
+  top_k: number;
+}
+
+export interface RagAskPayload {
+  question: string;
+  retriever: Extract<RagRetriever, 'hybrid' | 'vector' | 'keyword'>;
+  top_k: number;
+}
+
+export interface RagSearchResponse {
+  query: string;
+  retriever: RagRetriever | string;
+  hits: RagHit[];
+}
+
+export interface RagAskResponse {
+  answer: string;
+  retriever: RagRetriever | string;
+  sources: string[];
+  hits: RagHit[];
+}
+
+export type RagSource = string | Record<string, unknown>;

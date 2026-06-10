@@ -71,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { ChatDotRound, Document, Histogram, Tickets } from '@element-plus/icons-vue';
+import { ChatDotRound, Document, Histogram, Search, Tickets } from '@element-plus/icons-vue';
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -98,6 +98,7 @@ const entries = [
   { title: '查看标签映射', desc: '确认标签与故障名称', path: '/', icon: Histogram },
   { title: '生成报告', desc: '按 diagnosis_id 生成 Markdown', path: '/reports', icon: Document },
   { title: '诊断问答', desc: '围绕诊断记录继续追问', path: '/chat', icon: ChatDotRound },
+  { title: '知识库问答', desc: 'RAG 检索、来源和命中文档', path: '/rag', icon: Search },
 ];
 
 const labelRows = computed(() => Object.entries(labels.value).map(([label, name]) => ({ label, name })));

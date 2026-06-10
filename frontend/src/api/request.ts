@@ -16,7 +16,7 @@ export class ApiServiceError extends Error {
 }
 
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8010',
   timeout: 120000,
 });
 
@@ -54,6 +54,6 @@ export async function request<T>(config: AxiosRequestConfig): Promise<T> {
       throw new ApiServiceError({ code: 0, message: '请求超时，请稍后重试' });
     }
 
-    throw new ApiServiceError({ code: 0, message: '后端服务不可用，请确认 FastAPI 已在 127.0.0.1:8000 启动' });
+    throw new ApiServiceError({ code: 0, message: '后端服务不可用，请确认 FastAPI 已在 127.0.0.1:8010 启动' });
   }
 }

@@ -57,8 +57,26 @@
           <el-tag :type="status.llm_configured ? 'success' : 'info'">{{ boolText(status.llm_configured) }}</el-tag>
         </div>
         <div class="status-item">
-          <span>rag_enabled</span>
+          <span>RAG</span>
           <el-tag :type="status.rag_enabled ? 'success' : 'info'">{{ boolText(status.rag_enabled) }}</el-tag>
+        </div>
+        <div class="status-item">
+          <span>检索模式</span>
+          <el-tag type="primary" effect="plain">{{ status.rag_retriever || '未返回' }}</el-tag>
+        </div>
+        <div class="status-item">
+          <span>Embedding</span>
+          <el-tag :type="status.embedding_configured ? 'success' : 'info'">
+            {{ nullableBoolText(status.embedding_configured ?? null) }}
+          </el-tag>
+        </div>
+        <div class="status-item">
+          <span>知识库片段数</span>
+          <span class="value-text">{{ status.knowledge_chunks ?? '未返回' }}</span>
+        </div>
+        <div class="status-item wide">
+          <span>knowledge_base_dir</span>
+          <span class="value-text">{{ status.knowledge_base_dir || '未返回' }}</span>
         </div>
       </div>
     </template>
@@ -128,6 +146,10 @@ function nullableBoolText(value: boolean | null) {
   background: #fbfdff;
   color: #42526e;
   font-size: 13px;
+}
+
+.status-item.wide {
+  grid-column: 1 / -1;
 }
 
 .value-text {

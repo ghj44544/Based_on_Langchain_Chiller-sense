@@ -3,7 +3,7 @@
 Vue 3 + Vite + TypeScript + Element Plus 的前端 MVP，默认对接已有 FastAPI 后端：
 
 ```env
-VITE_API_BASE_URL=http://127.0.0.1:8000
+VITE_API_BASE_URL=http://127.0.0.1:8010
 ```
 
 ## 运行

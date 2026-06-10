@@ -33,6 +33,12 @@ const router = createRouter({
       component: () => import('@/views/Chat.vue'),
       meta: { title: '诊断问答' },
     },
+    {
+      path: '/rag',
+      name: 'rag-knowledge',
+      component: () => import('@/views/RagKnowledge.vue'),
+      meta: { title: '知识库问答' },
+    },
   ],
 });
 

@@ -30,6 +30,10 @@
           <el-icon><ChatDotRound /></el-icon>
           <span>诊断问答</span>
         </el-menu-item>
+        <el-menu-item index="/rag">
+          <el-icon><Search /></el-icon>
+          <span>知识库问答</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
 
@@ -50,11 +54,11 @@
 </template>
 
 <script setup lang="ts">
-import { ChatDotRound, DataLine, Document, Histogram, UploadFilled } from '@element-plus/icons-vue';
+import { ChatDotRound, DataLine, Document, Histogram, Search, UploadFilled } from '@element-plus/icons-vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8010';
 </script>
 
 <style scoped>
